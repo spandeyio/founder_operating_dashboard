@@ -15,13 +15,7 @@ def execute_sql(query: str) -> str:
     """
     conn = None
     try:
-        conn = psycopg2.connect(
-            user=settings.DB_USER,
-            password=settings.DB_PASSWORD,
-            host=settings.DB_HOST,
-            port=settings.DB_PORT,
-            dbname=settings.DB_NAME
-        )
+        conn = psycopg2.connect(settings.DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute(query)
         
@@ -60,13 +54,7 @@ def get_table_info() -> str:
     """
     conn = None
     try:
-        conn = psycopg2.connect(
-            user=settings.DB_USER,
-            password=settings.DB_PASSWORD,
-            host=settings.DB_HOST,
-            port=settings.DB_PORT,
-            dbname=settings.DB_NAME
-        )
+        conn = psycopg2.connect(settings.DATABASE_URL)
         cursor = conn.cursor()
         
         # Get list of tables

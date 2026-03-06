@@ -12,6 +12,9 @@ async def chat(request: ChatRequest):
     user_message = request.message
     
     conn = get_db_connection()
+    if not conn:
+        return {"response": "Error: Database connection failed. Please try again later."}
+        
     cur = conn.cursor()
     
     try:

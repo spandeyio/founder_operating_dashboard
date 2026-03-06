@@ -24,6 +24,9 @@ async def upload_csv(file: UploadFile = File(...), table_name: str = Form(...)):
         raise HTTPException(status_code=400, detail="Only CSV files are allowed")
     
     conn = get_db_connection()
+    if not conn:
+        raise HTTPException(status_code=500, detail="Database connection failed")
+        
     cur = conn.cursor()
     
     try:

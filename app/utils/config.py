@@ -9,11 +9,7 @@ class Settings(BaseSettings):
     SUPABASE_KEY: str
     
     # Database credentials
-    DB_USER: Optional[str] = "postgres"
-    DB_PASSWORD: Optional[str] = None
-    DB_HOST: Optional[str] = None
-    DB_PORT: Optional[str] = None
-    DB_NAME: Optional[str] = "postgres"
+    DATABASE_URL: Optional[str] = None
 
     class Config:
         env_file = ".env"

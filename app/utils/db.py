@@ -4,13 +4,11 @@ from app.utils.config import get_settings
 settings = get_settings()
 
 def get_db_connection():
-    return psycopg2.connect(
-        user=settings.DB_USER,
-        password=settings.DB_PASSWORD,
-        host=settings.DB_HOST,
-        port=settings.DB_PORT,
-        dbname=settings.DB_NAME
-    )
+    try:
+        return psycopg2.connect(settings.DATABASE_URL)
+    except Exception as e:
+        print("DB connection failed:", e)
+        return None
 
 def init_db():
     conn = None
