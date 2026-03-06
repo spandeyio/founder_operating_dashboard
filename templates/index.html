@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Founder Operating Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (Permanent) -->
+        <aside id="sidebar">
+            <div class="sidebar-header">
+                <h2>Operating Dashboard</h2>
+            </div>
+            
+            <div class="sidebar-content">
+                <div class="section">
+                    <h3>Available Tables</h3>
+                    <ul id="table-list" class="table-list">
+                        <li>Loading...</li>
+                    </ul>
+                </div>
+
+                <div id="context-suggestions" class="section suggestions-section" style="display: none;">
+                    <h3>Actions for <span id="current-table-name"></span></h3>
+                    <div id="suggestion-list" class="suggestion-list">
+                        <!-- Dynamic suggestions go here -->
+                    </div>
+                </div>
+
+                <div class="section upload-section">
+                    <h3>Import Data</h3>
+                    <form id="upload-form" class="upload-form">
+                        <input type="text" id="table-name" placeholder="New Table Name" required>
+                        <input type="file" id="csv-file" accept=".csv" required>
+                        <button type="submit" class="upload-btn">
+                            <svg viewBox="0 0 24 24" width="16" height="16" style="margin-right: 6px;"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+                            Upload CSV
+                        </button>
+                    </form>
+                    <div id="upload-status"></div>
+                </div>
+            </div>
+        </aside>
+
+        <main>
+            <header class="main-header">
+                <h1>Founder Insights</h1>
+            </header>
+
+            <div id="chat-container">
+                <!-- Messages will appear here -->
+                {% for msg in history %}
+                    <div class="message {{ msg.role }}">
+                        <div class="avatar">{{ "U" if msg.role == 'user' else "AI" }}</div>
+                        <div class="bubble">{{ msg.content | safe }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <div id="typing" class="typing">
+                <span></span><span></span><span></span>
+            </div>
+
+            <footer>
+                <!-- Removed Suggestion Cards -->
+                <div class="input-wrapper">
+                    <textarea id="message-input" placeholder="Ask for insights, dashboards, or anomalies..." rows="1"></textarea>
+                    <button id="send-btn">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                    </button>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="/static/js/script.js"></script>
+</body>
+</html>
